@@ -51,9 +51,9 @@ func main() {
 	parser := flags.NewParser(&env, flags.Default)
 	if _, err := parser.Parse(); err != nil {
 		if flagsErr, ok := err.(*flags.Error); ok && flagsErr.Type == flags.ErrHelp {
-			os.Exit(0)
+			os.Exit(0) //状态码0表示成功
 		} else {
-			os.Exit(1)
+			os.Exit(1) //状态码0表示失败
 		}
 	}
 
@@ -68,7 +68,7 @@ func main() {
 	if err := migrationLib.Up(); err != nil && err != migrate.ErrNoChange {
 		log.Fatalf("run database migration fail:%v", err)
 	}
-
+	//
 	pgClient, err := pglib.NewDefaultGOPGClient(pglib.GOPGConfig{
 		URL:       env.PostgresConfig.URL,
 		DebugMode: false,

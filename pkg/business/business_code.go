@@ -1,7 +1,7 @@
 package business
 
 const (
-	// common errors
+	//普通错误
 	Unknown            = 1000
 	InvalidBodyParse   = 1001
 	NotFound           = 1002
@@ -10,10 +10,10 @@ const (
 	MethodNowAllowed   = 1005
 	PathNotFound       = 1006
 
-	// resource errors
+	//资源错误
 	MemberNotFound = 1100
 
-	// auth errors
+	//验证错误
 	TokenRequired = 1200
 	TokenInvalid  = 1201
 	TokenExpired  = 1202
