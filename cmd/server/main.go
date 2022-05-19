@@ -68,7 +68,7 @@ func main() {
 	if err := migrationLib.Up(); err != nil && err != migrate.ErrNoChange {
 		log.Fatalf("run database migration fail:%v", err)
 	}
-	//
+
 	pgClient, err := pglib.NewDefaultGOPGClient(pglib.GOPGConfig{
 		URL:       env.PostgresConfig.URL,
 		DebugMode: false,
@@ -122,10 +122,10 @@ func GracefulRun(logger *loglib.Logger, fn func(ctx context.Context) error) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	done := make(chan error, 1)
+	done := make(chan error, 1) //设置error类型有缓冲通道
 
 	go func() {
-		done <- fn(ctx)
+		done <- fn(ctx) //传入子goroutine
 	}()
 
 	shutdown := make(chan os.Signal, 1)

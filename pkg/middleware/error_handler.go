@@ -14,7 +14,7 @@ func (b *BaseMiddleware) GlobalErrorHandle() gin.HandlerFunc {
 			err := c.Errors[len(c.Errors)-1].Err
 			switch err.(type) {
 			case *business.Error:
-				businessError := err.(*business.Error)
+				businessError := err.(*business.Error) //通过类型断言得到变量
 				b.sendErrorResponse(c, businessError)
 				return
 			default:

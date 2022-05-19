@@ -16,6 +16,7 @@ func NewHTTPServer(engine *gin.Engine, port string, mwe *middleware.BaseMiddlewa
 	}
 }
 
+//注册路由
 func registerRoutingRule(engine *gin.Engine, mwe *middleware.BaseMiddleware, svc *service.BaseService) *gin.Engine {
 	engine.Use(mwe.GlobalErrorHandle())
 	engine.NoMethod(svc.HandleMethodNotAllowed)

@@ -12,6 +12,7 @@ import (
 	"github.com/liluhao/ginstarter/pkg/dao"
 )
 
+//创建用户
 func (s *BaseService) CreateMember(c *gin.Context) {
 	var request struct {
 		dao.Member
@@ -22,11 +23,11 @@ func (s *BaseService) CreateMember(c *gin.Context) {
 		return
 	}
 	request.ID = uuid.NewV4().String()
-	if digest, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost); err != nil {
+	if digest, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost); err != nil { //对密码进行加密
 		s.responseWithError(c, business.NewError(business.Unknown, http.StatusBadRequest, "internal server error", err))
 		return
 	} else {
-		request.PasswordDigest = string(digest)
+		request.PasswordDigest = string(digest) //上述返回的digest是[]byte，所以需要再进行转换
 	}
 
 	member := dao.Member{ID: request.ID, Name: request.Name, Email: request.Email, PasswordDigest: request.PasswordDigest}
@@ -35,13 +36,14 @@ func (s *BaseService) CreateMember(c *gin.Context) {
 		s.responseWithError(c, business.NewError(business.Unknown, http.StatusBadRequest, "internal server error", err))
 		return
 	}
-	s.responseWithSuccess(c, business.NewSuccess(http.StatusCreated, gin.H{"memberId": memberID}))
+	s.responseWithSuccess(c, business.NewSuccess(http.StatusCreated, gin.H{"memberId": memberID})) //把ID返回
 }
 
+//获取用户消息
 func (s *BaseService) GetMember(c *gin.Context) {
 	memberID := c.Param("id")
 	if memberID == "" {
-		s.responseWithError(c, business.NewError(business.InvalidBodyParse, http.StatusBadRequest, "invalid memberID", nil))
+		s.responseWithError(c, business.NewError(business.InvalidBodyParse, http.StatusBadRequest, "invalid memberID", nil)) //由于Param函数不会返回error，所以传入nil
 		return
 	}
 
@@ -53,6 +55,7 @@ func (s *BaseService) GetMember(c *gin.Context) {
 	s.responseWithSuccess(c, business.NewSuccess(http.StatusOK, member))
 }
 
+//更新用户信息
 func (s *BaseService) UpdateMember(c *gin.Context) {
 	var requestMemberID struct {
 		ID string `uri:"id" binding:"uuid4"`
@@ -80,6 +83,7 @@ func (s *BaseService) UpdateMember(c *gin.Context) {
 	s.responseWithSuccess(c, business.NewSuccess(http.StatusNoContent, nil))
 }
 
+//删除用户信息
 func (s *BaseService) DeleteMember(c *gin.Context) {
 	var requestMemberID struct {
 		ID string `uri:"id" binding:"uuid4"`
