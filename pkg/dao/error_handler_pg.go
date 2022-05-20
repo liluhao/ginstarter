@@ -3,8 +3,8 @@ package dao
 import (
 	"net/http"
 
-	"github.com/KennyChenFight/golib/loglib"
 	"github.com/liluhao/ginstarter/pkg/business"
+	"github.com/liluhao/lib/loglib"
 	"go.uber.org/zap"
 )
 

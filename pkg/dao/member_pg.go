@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/KennyChenFight/golib/pglib"
+	"github.com/liluhao/lib/pglib"
 
-	"github.com/KennyChenFight/golib/loglib"
 	"github.com/liluhao/ginstarter/pkg/business"
+	"github.com/liluhao/lib/loglib"
 )
 
+// PGMember = PostgrePql member
 func NewPGMemberDAO(logger *loglib.Logger, client *pglib.GOPGClient) *PGMemberDAO {
 	return &PGMemberDAO{logger: logger, client: client}
 }

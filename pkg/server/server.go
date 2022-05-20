@@ -12,7 +12,7 @@ import (
 func NewHTTPServer(engine *gin.Engine, port string, mwe *middleware.BaseMiddleware, svc *service.BaseService) *http.Server {
 	return &http.Server{
 		Addr:    port,
-		Handler: registerRoutingRule(engine, mwe, svc),
+		Handler: registerRoutingRule(engine, mwe, svc), //把gin路由封装在http.Server中
 	}
 }
 

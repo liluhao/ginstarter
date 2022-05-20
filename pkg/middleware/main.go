@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	"github.com/KennyChenFight/golib/loglib"
 	"github.com/gin-gonic/gin"
 	"github.com/liluhao/ginstarter/pkg/business"
 	"github.com/liluhao/ginstarter/pkg/validation"
+	"github.com/liluhao/lib/loglib"
 	"go.uber.org/zap"
 )
 
